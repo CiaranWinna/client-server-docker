@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  server:
+    build: server/
+    volumes:
+      - servervol:/server/serverdata
+    command: java Server
+    ports:
+      - 4000:4000
+
+  client:
+    build: client/
+
+    volumes:
+      - servervol:/client/clientdata
+    command: java Client
+    network_mode: host
+    depends_on:
+      - server
+
+volumes:
+  servervol:
+  clientvol:
